@@ -20,7 +20,7 @@ module.exports = {
 
     // Respond request to give latest 100 data
     async getDataDipasena(req, res) {
-        data = await dbase_rest.query(`SELECT to_char(time, 'DD-MM-YYYY HH24:MI:SS') as time, suhu_air_permukaan, suhu_air_dasar, suhu_ruang, salinitas, oxygen, salinitas, ph, amonia FROM tambak_dipasena ORDER BY time DESC LIMIT 100`);
+        data = await dbase_rest.query(`SELECT to_char(time, 'DD-MM-YYYY HH24:MI:SS') as time, suhu_air_permukaan, suhu_air_dasar, suhu_ruang, salinitas, oxygen, salinitas, ph, amonia FROM tambak_dipasena ORDER BY time DESC LIMIT 10`);
         
         res.status(200);
         res.send({

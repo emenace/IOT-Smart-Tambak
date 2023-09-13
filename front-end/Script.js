@@ -3,14 +3,19 @@ function fetchDataAndDisplay() {
         .then(response => response.json())
         .then(data => {
             const suhu_air_permukaan = data.result[0].suhu_air_permukaan;
-            const pressure = data.result[0].pressure;
-            const temperature = data.result[0].temperature;
+            const suhu_air_dasar= data.result[0].suhu_air_dasar;
+            const suhu_ruang = data.result[0].suhu_ruang;
             const ph = data.result[0].ph;
-            const time = data.result[0].time;
+            const salinitas = data.result[0].salinitas;
+            const oxygen = data.result[0].oxygen;
+            const amonia = data.result[0].amonia;
             document.getElementById('suhu_air_permukaan').innerHTML = suhu_air_permukaan;
-            document.getElementById('pressure').innerHTML = pressure;
-            document.getElementById('temperature').innerHTML = temperature;
+            document.getElementById('suhu_air_dasar').innerHTML = suhu_air_dasar;
+            document.getElementById('suhu_ruang').innerHTML = suhu_ruang;
             document.getElementById('ph').innerHTML = ph;
+            document.getElementById('oxygen').innerHTML = oxygen;
+            document.getElementById('salinitas').innerHTML = salinitas;
+            document.getElementById('amonia').innerHTML = amonia;
             // document.getElementById('npm').innerHTML = data.npm;
         })
         .catch(error =>

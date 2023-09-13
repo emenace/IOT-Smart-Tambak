@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta charset="UTF-8">
-        <title>Dashboard Smart Tambak</title>
-        <link rel="stylesheet" type="text/css" href="Dashboard.css">
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Dashboard Smart Tambak</title>
+  <link rel="stylesheet" type="text/css" href="Dashboard.css">
+ 
+  <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" async defer></script>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
 
 </head>
 <body>
@@ -29,24 +36,32 @@
 
     <div class="content">
         <div class="info-card">
-            <h2>Suhu</h2>
-            <p id="suhu_air_permukaan"></p>
-        </div>
-        <div class="info-card">
-            <h2>Salinitas</h2>
-            <p id="pressure"></p>
+            <h2>Kadar Oksigen</h2>
+            <p id="oxygen"></p>
         </div>
         <div class="info-card">
             <h2>pH</h2>
-            <p id="temperature"></p>
-        </div>
-        <div class="info-card">
-            <h2>Amonia</h2>
             <p id="ph"></p>
         </div>
         <div class="info-card">
-            <h2>Oksigen</h2>
-            <p>8 mg/L</p>
+            <h2>Salinitas</h2>
+            <p id="salinitas"></p>
+        </div>
+        <div class="info-card">
+            <h2>Amonia</h2>
+            <p id="amonia"></p>
+        </div>
+        <div class="info-card">
+            <h2>Suhu Permukaan</h2>
+            <p id="suhu_air_permukaan"></p>
+        </div>
+        <div class="info-card">
+            <h2>Suhu Dasar</h2>
+            <p id="suhu_air_dasar"></p>
+        </div>
+        <div class="info-card">
+            <h2>Suhu Ruang</h2>
+            <p id="suhu_ruang"></p>
         </div>
     </div>
 
@@ -54,15 +69,15 @@
     <table class="data-table">
         <thead>
             <tr>
-                <th>Date_Time</th>
+                <th>No</th>
+                <th>Waktu</th>
+                <th>Kadar Oksigen</th>
+                <th>pH</th>
+                <th>Salinitas</th>
+                <th>Amonia</th>
                 <th>Suhu Permukaan</th>
                 <th>Suhu Dasar</th>
                 <th>Suhu Ruang</th>
-                <th>Salinitas</th>
-                <th>Kadar Oksigen</th>
-                <th>PH</th>
-                <th>Amonia</th>
-
             </tr>
         </thead>
         <tbody id="data-body">
@@ -76,11 +91,15 @@
     <!-- <div id="map" style="height: 300px; width: 400px;"></div> -->
 </div>
 <script src="Script.js"></script>
-<div class="chart-container">
-    <canvas id="line-chart"></canvas>
-</div>
-
-
+    <script>
+        // Fungsi inisialisasi peta
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -4.29627, lng: 105.79303 },
+                zoom: 12,
+            });
+        }
+    </script>
 
 </body>
 </html>

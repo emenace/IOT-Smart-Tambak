@@ -20,15 +20,42 @@ module.exports = {
 
     // Respond request to give latest 100 data
     async getDataDipasena(req, res) {
-        data = await dbase_rest.query(`SELECT time,humidity,pressure,temperature,ph,tds,amonia,kadar_oksigen,temp_air 
+        data = await dbase_rest.query(`SELECT to_char(time, 'DD-MM-YYYY HH24:MI:SS') as time,humidity,pressure,temperature,ph,tds,amonia,kadar_oksigen,temp_air 
         FROM dipasena ORDER BY time DESC LIMIT 100`);
 
         res.status(200);
         res.send({
             count:data.rowCount,
-            result:data.rows.reverse(),
+            result:data.rows,
         })
         console.log("[REST-API DIPASENA] GET DATA 100");
 
-    }
+    },
+
+    // respond request to give latest 50 data 
+    async getDataTable(req, res) {
+        data = await dbase_rest.query(`SELECT to_char(time, 'DD-MM-YYYY HH24:MI:SS') as time,humidity,pressure,temperature,ph,tds,amonia,kadar_oksigen,temp_air 
+        FROM dipasena ORDER BY time DESC LIMIT 50`);
+
+        res.status(200);
+        res.send({
+            count:data.rowCount,
+            result:data.rows,
+        })
+        console.log("[REST-API DIPASENA] GET DATA FOR TABLE 50");
+
+    },
+    async getDataChart(req, res) {
+        data = await dbase_rest.query(`SELECT to_char(time, 'DD-MM-YYYY HH24:MI:SS') as time,humidity,pressure  
+        FROM dipasena ORDER BY time DESC LIMIT 50`);
+
+        res.status(200);
+        res.send({
+            count:data.rowCount,
+            result:data.rows,
+        })
+        console.log("[REST-API DIPASENA] GET DATA FOR CHART 50");
+
+    },
+
 }

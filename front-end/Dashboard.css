@@ -131,5 +131,16 @@ body {
     margin-top: 20px; /* Jarak atas dari teks */
 }
 
+/* styles.css */
+.chart-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #451952;
+    border: 1px solid #8ECDDD;
+    border-radius: 5px;
+}
+
+
 
 

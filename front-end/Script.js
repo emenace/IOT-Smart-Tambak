@@ -2,12 +2,12 @@ function fetchDataAndDisplay() {
     fetch('http://localhost:3000/dipasena/latest')
         .then(response => response.json())
         .then(data => {
-            const humidity = data.result[0].humidity;
+            const suhu_air_permukaan = data.result[0].suhu_air_permukaan;
             const pressure = data.result[0].pressure;
             const temperature = data.result[0].temperature;
             const ph = data.result[0].ph;
             const time = data.result[0].time;
-            document.getElementById('humidity').innerHTML = humidity;
+            document.getElementById('suhu_air_permukaan').innerHTML = suhu_air_permukaan;
             document.getElementById('pressure').innerHTML = pressure;
             document.getElementById('temperature').innerHTML = temperature;
             document.getElementById('ph').innerHTML = ph;
@@ -19,7 +19,7 @@ function fetchDataAndDisplay() {
 }
 
 // Fungsi ini akan dijalankan setiap satu detik
-setInterval(fetchDataAndDisplay, 1000);
+setInterval(fetchDataAndDisplay, 5000);
 
 // Panggil fungsi ini saat halaman pertama kali dimuat untuk menampilkan data awal
 fetchDataAndDisplay();
@@ -37,14 +37,13 @@ function fetchData() {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${item.time}</td>
-                    <td>${item.humidity}</td>
-                    <td>${item.pressure}</td>
-                    <td>${item.temperature}</td>
+                    <td>${item.suhu_air_permukaan}</td>
+                    <td>${item.suhu_air_dasar}</td>
+                    <td>${item.suhu_ruang}</td>
+                    <td>${item.salinitas}</td>
+                    <td>${item.oxygen}</td>
                     <td>${item.ph}</td>
-                    <td>${item.tds}</td>
                     <td>${item.amonia}</td>
-                    <td>${item.kadar_oksigen}</td>
-                    <td>${item.temp_air}</td>
                 `;
 
                 dataBody.appendChild(row);
@@ -57,7 +56,99 @@ function fetchData() {
 // Panggil fetchData untuk pertama kali
 fetchData();
 
-// Set interval untuk memperbarui data setiap 5 deti
+// chart 
+// Fungsi untuk mengambil data dari API
+async function fetchDataChart() {
+    try {
+        const response = await fetch('http://localhost:3000/dipasena/chart'); // Ganti dengan URL API Anda
+        const data = await response.json();
+        return data.result;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return [];
+    }
+}
+
+
+// Inisialisasi Chart.js dan buat grafik
+// script.js
+const apiUrl = 'http://localhost:3000/dipasena/chart'; // Ganti dengan URL API yang sesuai
+const chartElement = document.getElementById('line-chart');
+
+async function fetchDataChart() {
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        return data.result;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return [];
+    }
+}
+
+async function createLineChart() {
+    const data = await fetchDataChart();
+
+    if (data.length === 0) {
+        console.error('No data available.');
+        return;
+    }
+
+    const timeLabels = data.map(item => item.time);
+    const humidityData = data.map(item => item.humidity);
+    const pressureData = data.map(item => item.pressure);
+
+    const lineChart = new Chart(chartElement, {
+        type: 'line',
+        data: {
+            labels: timeLabels,
+            datasets: [
+                {
+                    label: 'Humidity (%)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    data: humidityData,
+                    yAxisID: 'humidity',
+                },
+                {
+                    label: 'Pressure (hPa)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    data: pressureData,
+                    yAxisID: 'pressure',
+                },
+            ],
+        },
+        options: {
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Time',
+                    },
+                },
+                humidity: {
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: 'Humidity (%)',
+                    },
+                },
+                pressure: {
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: 'Pressure (hPa)',
+                    },
+                },
+            },
+        },
+    });
+}
+
+createLineChart();
+
 
 
 

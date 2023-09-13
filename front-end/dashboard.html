@@ -1,18 +1,11 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="UTF-8">
-  <title>Dashboard Smart Tambak</title>
-  <link rel="stylesheet" type="text/css" href="Dashboard.css">
- 
-  <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" async defer></script>
-    <style>
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-    </style>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>Dashboard Smart Tambak</title>
+        <link rel="stylesheet" type="text/css" href="Dashboard.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 <body>
@@ -37,7 +30,7 @@
     <div class="content">
         <div class="info-card">
             <h2>Suhu</h2>
-            <p id="humidity"></p>
+            <p id="suhu_air_permukaan"></p>
         </div>
         <div class="info-card">
             <h2>Salinitas</h2>
@@ -61,15 +54,15 @@
     <table class="data-table">
         <thead>
             <tr>
-                <th>Waktu</th>
-                <th>Humidity</th>
-                <th>Pressure</th>
-                <th>Temperature</th>
-                <th>pH</th>
-                <th>TDS</th>
-                <th>Amonia</th>
+                <th>Date_Time</th>
+                <th>Suhu Permukaan</th>
+                <th>Suhu Dasar</th>
+                <th>Suhu Ruang</th>
+                <th>Salinitas</th>
                 <th>Kadar Oksigen</th>
-                <th>Temp Air</th>
+                <th>PH</th>
+                <th>Amonia</th>
+
             </tr>
         </thead>
         <tbody id="data-body">
@@ -83,15 +76,11 @@
     <!-- <div id="map" style="height: 300px; width: 400px;"></div> -->
 </div>
 <script src="Script.js"></script>
-    <script>
-        // Fungsi inisialisasi peta
-        function initMap() {
-            const map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: -4.29627, lng: 105.79303 },
-                zoom: 12,
-            });
-        }
-    </script>
+<div class="chart-container">
+    <canvas id="line-chart"></canvas>
+</div>
+
+
 
 </body>
 </html>

@@ -50,7 +50,8 @@ module.exports = {
                         HUMIDITY = parseFloat(payload[HUMIDITY_PATH]);
                         PRESSURE = parseFloat(payload[PRESSURE_PATH]);
                         TEMP = parseFloat(payload[TEMP_PATH]);
-                        PH = parseFloat(payload[PHSENSOR_PATH]);
+                        P= parseFloat(payload[PHSENSOR_PATH]);
+                        PH=P/1000;
                         TDS = parseFloat(payload[TDSSENSOR_PATH]);
                         NH3 = parseFloat(payload[NH3_PATH]);
                         DO = parseFloat(payload[DO_PATH]);
@@ -62,7 +63,7 @@ module.exports = {
                 const insertQuery = `INSERT INTO dipasena(time, humidity,pressure,temperature,ph,tds,amonia,kadar_oksigen,temp_air) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9)`;
                 dbase_mqtt.query(insertQuery, dataArray, (err, res) => {
                     if (err) throw err;
-                 console.log(`DATA INSERTED TO DATABASE : Time = ${TS}, humidity = ${HUMIDITY}, pressure = ${PRESSURE}, temperature = ${TEMP}, pH = ${PH}, tds = ${TDS},amonia=${NH3},kadar_oksigen=${DO},temp_air=${WTEMP}`);
+                //  console.log(`DATA INSERTED TO DATABASE : Time = ${TS}, humidity = ${HUMIDITY}, pressure = ${PRESSURE}, temperature = ${TEMP}, pH = ${PH}, tds = ${TDS},amonia=${NH3},kadar_oksigen=${DO},temp_air=${WTEMP}`);
                 });
             }
         }

@@ -41,6 +41,7 @@ function fetchData() {
             data.result.slice(0,10).forEach((item, index) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
+                    <td>${index + 1}</td>
                     <td>${item.time}</td>
                     <td>${item.suhu_air_permukaan}</td>
                     <td>${item.suhu_air_dasar}</td>

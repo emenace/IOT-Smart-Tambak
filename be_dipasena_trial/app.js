@@ -28,10 +28,13 @@ api.use(cors({
 const dbase_dipasena = require('./database_config.js'); 
 dbase_dipasena.query(`CREATE TABLE IF NOT EXISTS tambak_dipasena (
   time TIMESTAMP NOT NULL,  
-  suhu_air FLOAT, 
+  suhu_air_permukaan FLOAT,
+  suhu_air_dasar FLOAT,
   suhu_ruang FLOAT,
   salinitas FLOAT,
-  kadar_oksigen FLOAT)
+  oxygen FLOAT,
+  ph FLOAT,
+  amonia FLOAT)
   `, function(err, result){
     console.log("Database Dipasena Connected");
   });

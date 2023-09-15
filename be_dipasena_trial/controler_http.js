@@ -42,36 +42,28 @@ module.exports = {
         })
         console.log("[REST-API DIPASENA] GET DATA TABEL 50");
     },
-    async getDataTabel(req, res) {
-        data1 = await dbase_rest.query(`SELECT to_char(time, 'DD-MM-YYYY HH24:MI:SS') as time, suhu_air_permukaan, suhu_air_dasar, suhu_ruang, salinitas, oxygen, ph, amonia FROM tambak_dipasena ORDER BY time DESC LIMIT 10`);
-
-        res.status(200);
-        res.send({
-            count:data1.rowCount,
-            result:data1.rows,
-        })
-        console.log("[REST-API DIPASENA] GET DATA TABEL 50");
-    },
-    async getDataTabel(req, res) {
-        data1 = await dbase_rest.query(`SELECT to_char(time, 'DD-MM-YYYY HH24:MI:SS') as time, suhu_air_permukaan, suhu_air_dasar, suhu_ruang, salinitas, oxygen, ph, amonia FROM tambak_dipasena ORDER BY time DESC LIMIT 10`);
-
-        res.status(200);
-        res.send({
-            count:data1.rowCount,
-            result:data1.rows,
-        })
-        console.log("[REST-API DIPASENA] GET DATA TABEL 50");
-    },
     // CHART 
-    async getDataChart(req, res) {
-        data1 = await dbase_rest.query(`SELECT to_char(time, 'DD-MM-YYYY HH24:MI:SS') as time, suhu_air_permukaan FROM tambak_dipasena ORDER BY time DESC LIMIT 50`);
+    async getDataChartSuhuPer(req, res) {
+        data1 = await dbase_rest.query(`SELECT to_char(time, 'HH24:MI:SS') as time, suhu_air_permukaan FROM tambak_dipasena ORDER BY time DESC LIMIT 50`);
 
         res.status(200);
         res.send({
             count:data1.rowCount,
             result:data1.rows,
         })
-        console.log("[REST-API DIPASENA] GET DATA CHART 20");
+        console.log("[REST-API DIPASENA] GET DATA CHART 50");
+    },
+
+    // CHART PH
+    async getDataChartPh(req, res) {
+        data1 = await dbase_rest.query(`SELECT to_char(time, 'HH24:MI:SS') as time, ph FROM tambak_dipasena ORDER BY time DESC LIMIT 50`);
+
+        res.status(200);
+        res.send({
+            count:data1.rowCount,
+            result:data1.rows,
+        })
+        console.log("[REST-API DIPASENA] GET DATA PH 50");
     },
 
     

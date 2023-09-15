@@ -24,7 +24,7 @@ function fetchDataAndDisplay() {
 }
 
 // Fungsi ini akan dijalankan setiap satu detik
-setInterval(fetchDataAndDisplay, 5000);
+setInterval(fetchDataAndDisplay, 59000);
 
 // Panggil fungsi ini saat halaman pertama kali dimuat untuk menampilkan data awal
 fetchDataAndDisplay();
@@ -60,100 +60,105 @@ function fetchData() {
         );
 }
 // Panggil fetchData untuk pertama kali
+setInterval(fetchData, 59000);
 fetchData();
 
-// chart 
-// Fungsi untuk mengambil data dari API
-async function fetchDataChart() {
-    try {
-        const response = await fetch('http://localhost:3000/dipasena/chart'); // Ganti dengan URL API Anda
-        const data = await response.json();
-        return data.result;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        return [];
+
+// CHART SUHU PERMUKAAN 
+const url = 'http://localhost:3000/dipasena/chart/suhu_per';
+const chart = new Chart(document.getElementById('myChart'), {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [{
+            label: 'Suhu Air Permukaan',
+            data: [],
+            backgroundColor: 'rgba(0, 119, 204, 0.3)',
+            borderColor: 'rgba(0, 119, 204, 0.8)',
+            borderWidth: 2,
+            pointRadius: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    unit: 'second'
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
     }
+});
+
+function updateChart() {
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const time = new Date().toLocaleTimeString();
+            const suhu_air_permukaan = data.result[data.count - 1].suhu_air_permukaan;
+            chart.data.labels.push(time);
+            chart.data.datasets[0].data.push(suhu_air_permukaan);
+            chart.update();
+        });
 }
 
+setInterval(updateChart, 1000);
 
-// Inisialisasi Chart.js dan buat grafik
-// script.js
-const apiUrl = 'http://localhost:3000/dipasena/chart'; // Ganti dengan URL API yang sesuai
-const chartElement = document.getElementById('line-chart');
-
-async function fetchDataChart() {
-    try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        return data.result;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        return [];
+// CHART PH 
+const urlPh = 'http://localhost:3000/dipasena/chart/ph';
+const chartPh = new Chart(document.getElementById('myChartPh'), {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [{
+            label: 'pH',
+            data: [],
+            backgroundColor: 'rgba(0, 119, 204, 0.3)',
+            borderColor: 'rgba(0, 119, 204, 0.8)',
+            borderWidth: 2,
+            pointRadius: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    unit: 'second'
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
     }
+});
+
+function updateChartPh() {
+    fetch(urlPh)
+        .then(response => response.json())
+        .then(data => {
+            const time = new Date().toLocaleTimeString();
+            const ph = data.result[data.count - 1].ph;
+            chartPh.data.labels.push(time);
+            chartPh.data.datasets[0].data.push(ph);
+            chartPh.update();
+        });
 }
 
-async function createLineChart() {
-    const data = await fetchDataChart();
-
-    if (data.length === 0) {
-        console.error('No data available.');
-        return;
-    }
-
-    const timeLabels = data.map(item => item.time);
-    const humidityData = data.map(item => item.humidity);
-    const pressureData = data.map(item => item.pressure);
-
-    const lineChart = new Chart(chartElement, {
-        type: 'line',
-        data: {
-            labels: timeLabels,
-            datasets: [
-                {
-                    label: 'Humidity (%)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    data: humidityData,
-                    yAxisID: 'humidity',
-                },
-                {
-                    label: 'Pressure (hPa)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    data: pressureData,
-                    yAxisID: 'pressure',
-                },
-            ],
-        },
-        options: {
-            scales: {
-                x: {
-                    display: true,
-                    title: {
-                        display: true,
-                        text: 'Time',
-                    },
-                },
-                humidity: {
-                    position: 'left',
-                    title: {
-                        display: true,
-                        text: 'Humidity (%)',
-                    },
-                },
-                pressure: {
-                    position: 'right',
-                    title: {
-                        display: true,
-                        text: 'Pressure (hPa)',
-                    },
-                },
-            },
-        },
-    });
-}
-
-createLineChart();
+setInterval(updateChartPh, 1000);
 
 
 

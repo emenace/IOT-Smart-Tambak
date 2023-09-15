@@ -1,0 +1,9 @@
+/* Style the chart container */
+.chart-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Add any additional styling as needed */

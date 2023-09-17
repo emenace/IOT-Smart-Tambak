@@ -138,3 +138,30 @@ body {
     text-align: center; /* Mengatur teks menjadi di tengah */
     margin-top: 20px; /* Jarak atas dari teks */
 }
+.chart-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    margin: 20px auto;
+}
+
+.chart {
+    height: 300px;
+    width: 100%;
+    margin: 5px;
+    box-sizing: border-box;
+}
+
+@media (min-width: 600px) {
+    .chart {
+        width: calc((100% / 3) - 10px); /* Bagi layar menjadi 3 kolom pada tampilan tablet */
+    }
+}
+
+@media (min-width: 900px) {
+    .chart {
+        width: calc((100% / 2) - 10px); /* Bagi layar menjadi 2 kolom pada tampilan desktop */
+    }
+}
+

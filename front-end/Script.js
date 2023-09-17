@@ -24,7 +24,7 @@ function fetchDataAndDisplay() {
 }
 
 // Fungsi ini akan dijalankan setiap satu detik
-setInterval(fetchDataAndDisplay, 5000);
+setInterval(fetchDataAndDisplay, 600000);
 
 // Panggil fungsi ini saat halaman pertama kali dimuat untuk menampilkan data awal
 fetchDataAndDisplay();
@@ -60,100 +60,173 @@ function fetchData() {
         );
 }
 // Panggil fetchData untuk pertama kali
+setInterval(fetchData, 600000);
 fetchData();
 
-// chart 
-// Fungsi untuk mengambil data dari API
-async function fetchDataChart() {
-    try {
-        const response = await fetch('http://localhost:3000/dipasena/chart'); // Ganti dengan URL API Anda
-        const data = await response.json();
-        return data.result;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        return [];
-    }
-}
+// LINE Chart Suhu AIr 
+fetch('http://localhost:3000/dipasena/chart/suhuAir')
+.then(response => response.json())
+.then(data => {
+    const result = data.result;
+    const latestData = result.slice(Math.max(result.length - 60, 0)); // Ambil 20 data terbaru
 
+    const labels = latestData.map(item => item.time1);
+    const suhuAirPermukaan = latestData.map(item => item.suhu_air_permukaan);
+    const suhuAirDasar = latestData.map(item => item.suhu_air_dasar);
 
-// Inisialisasi Chart.js dan buat grafik
-// script.js
-const apiUrl = 'http://localhost:3000/dipasena/chart'; // Ganti dengan URL API yang sesuai
-const chartElement = document.getElementById('line-chart');
-
-async function fetchDataChart() {
-    try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        return data.result;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        return [];
-    }
-}
-
-async function createLineChart() {
-    const data = await fetchDataChart();
-
-    if (data.length === 0) {
-        console.error('No data available.');
-        return;
-    }
-
-    const timeLabels = data.map(item => item.time);
-    const humidityData = data.map(item => item.humidity);
-    const pressureData = data.map(item => item.pressure);
-
-    const lineChart = new Chart(chartElement, {
+    const ctx = document.getElementById('myChart').getContext('2d');
+    new Chart(ctx, {
         type: 'line',
         data: {
-            labels: timeLabels,
-            datasets: [
-                {
-                    label: 'Humidity (%)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    data: humidityData,
-                    yAxisID: 'humidity',
-                },
-                {
-                    label: 'Pressure (hPa)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    data: pressureData,
-                    yAxisID: 'pressure',
-                },
-            ],
-        },
-        options: {
-            scales: {
-                x: {
-                    display: true,
-                    title: {
-                        display: true,
-                        text: 'Time',
-                    },
-                },
-                humidity: {
-                    position: 'left',
-                    title: {
-                        display: true,
-                        text: 'Humidity (%)',
-                    },
-                },
-                pressure: {
-                    position: 'right',
-                    title: {
-                        display: true,
-                        text: 'Pressure (hPa)',
-                    },
-                },
+            labels: labels,
+            datasets: [{
+                label: 'Suhu Air Permukaan',
+                data: suhuAirPermukaan,
+                borderColor: '#35A29F',
+                tension: 0.1
             },
-        },
+            {
+                label: 'Suhu Air Dasar',
+                data: suhuAirDasar,
+                borderColor: ' #071952',
+                tension: 0.1
+            }]
+        }
     });
-}
+})
 
-createLineChart();
+.catch(error => console.error('Error:', error));
+
+// Line Chart PH 
+fetch('http://localhost:3000/dipasena/chart/ph')
+.then(response => response.json())
+.then(data => {
+    const result = data.result;
+    const latestData = result.slice(Math.max(result.length - 60, 0)); // Ambil 20 data terbaru
+
+    const labels = latestData.map(item => item.time2);
+    const ph = latestData.map(item => item.ph);
+
+    const grafPh = document.getElementById('ChartPh').getContext('2d');
+    new Chart(grafPh, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'pH Air ',
+                data: ph,
+                borderColor: '#1A5D1A',
+                tension: 0.1
+            }]
+        }
+    });
+})
+.catch(error => console.error('Error:', error));
+
+// Line Chart KADAR OKSIGEN
+fetch('http://localhost:3000/dipasena/chart/do')
+.then(response => response.json())
+.then(data => {
+    const result = data.result;
+    const latestData = result.slice(Math.max(result.length - 60, 0)); // Ambil 20 data terbaru
+
+    const labels = latestData.map(item => item.time3);
+    const Oksigen = latestData.map(item => item.oxygen);
+
+    const grafDo = document.getElementById('ChartDo').getContext('2d');
+    new Chart(grafDo, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Kadar Oksigen ',
+                data: Oksigen,
+                borderColor: '#E55604',
+                tension: 0.1
+            }]
+        }
+    });
+})
+.catch(error => console.error('Error:', error));
+
+
+// Line Chart SALINITAS
+fetch('http://localhost:3000/dipasena/chart/salinitas')
+.then(response => response.json())
+.then(data => {
+    const result = data.result;
+    const latestData = result.slice(Math.max(result.length - 60, 0)); // Ambil 20 data terbaru
+
+    const labels = latestData.map(item => item.time4);
+    const salinitas = latestData.map(item => item.salinitas);
+
+    const grafSalinitas = document.getElementById('ChartSalinitas').getContext('2d');
+    new Chart(grafSalinitas, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Salinitas Air ',
+                data: salinitas,
+                borderColor: '#16FF00',
+                tension: 0.1
+            }]
+        }
+    });
+})
+.catch(error => console.error('Error:', error));
+
+// Line Chart Suhu Ruang
+fetch('http://localhost:3000/dipasena/chart/suhuRuang')
+.then(response => response.json())
+.then(data => {
+    const result = data.result;
+    const latestData = result.slice(Math.max(result.length - 60, 0)); // Ambil 20 data terbaru
+
+    const labels = latestData.map(item => item.time5);
+    const suhuRuang = latestData.map(item => item.suhu_ruang);
+
+    const grafSuhuRuang = document.getElementById('ChartSuhuRuang').getContext('2d');
+    new Chart(grafSuhuRuang, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Suhu Ruang ',
+                data: suhuRuang,
+                borderColor: '#FFED00',
+                tension: 0.1
+            }]
+        }
+    });
+})
+.catch(error => console.error('Error:', error));
+
+// Line Chart Amonia
+fetch('http://localhost:3000/dipasena/chart/amonia')
+.then(response => response.json())
+.then(data => {
+    const result = data.result;
+    const latestData = result.slice(Math.max(result.length - 60, 0)); // Ambil 20 data terbaru
+
+    const labels = latestData.map(item => item.time6);
+    const amonia_ = latestData.map(item => item.amonia);
+
+    const grafAmonia = document.getElementById('ChartAmonia').getContext('2d');
+    new Chart(grafAmonia, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Amonia ',
+                data: amonia_,
+                borderColor: '#C21010',
+                tension: 0.1
+            }]
+        }
+    });
+})
+.catch(error => console.error('Error:', error));
 
 
 
@@ -169,3 +242,4 @@ const map = new google.maps.Map(document.getElementById("map"), {
     width: 400,
     height: 300,
 });
+

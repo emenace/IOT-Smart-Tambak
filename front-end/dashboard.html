@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <title>Dashboard Smart Tambak</title>
   <link rel="stylesheet" type="text/css" href="Dashboard.css">
- 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" async defer></script>
     <style>
         #map {
@@ -83,6 +83,36 @@
         <tbody id="data-body">
         </tbody>
     </table>
+    <h2 class="Judul">GRAFIK</h2>
+    <div class="chart-container">
+        <!-- Suhu air permukaan,dasar, dan ruang -->
+        <div class="chart">
+            <canvas id="myChart"></canvas>
+        </div>
+        <!-- PH -->
+        <div class="chart">
+            <canvas id="ChartPh"></canvas>
+        </div>
+        <!-- Kadar Oksigen -->
+        <div class="chart">
+            <canvas id="ChartDo"></canvas>
+        </div>
+        <!-- Salinitas -->
+        <div class="chart">
+            <canvas id="ChartSalinitas"></canvas>
+        </div>
+        <!-- Suhu Ruang -->
+        <div class="chart">
+            <canvas id="ChartSuhuRuang"></canvas>
+        </div>
+        <!-- Salinitas -->
+        <div class="chart">
+            <canvas id="ChartAmonia"></canvas>
+        </div>
+    </div>
+    <script src="Script.js"></script>
+
+    
     <!-- <script src="Script.js"></script> -->
             
     <!-- <div class="centered-text"> -->

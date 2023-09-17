@@ -63,7 +63,7 @@ module.exports = {
                 const insertQuery = `INSERT INTO dipasena(time, humidity,pressure,temperature,ph,tds,amonia,kadar_oksigen,temp_air) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9)`;
                 dbase_mqtt.query(insertQuery, dataArray, (err, res) => {
                     if (err) throw err;
-                //  console.log(`DATA INSERTED TO DATABASE : Time = ${TS}, humidity = ${HUMIDITY}, pressure = ${PRESSURE}, temperature = ${TEMP}, pH = ${PH}, tds = ${TDS},amonia=${NH3},kadar_oksigen=${DO},temp_air=${WTEMP}`);
+                console.log(`DATA INSERTED TO DATABASE : Time = ${TS}, humidity = ${HUMIDITY}, pressure = ${PRESSURE}, temperature = ${TEMP}, pH = ${PH}, tds = ${TDS},amonia=${NH3},kadar_oksigen=${DO},temp_air=${WTEMP}`);
                 });
             }
         }

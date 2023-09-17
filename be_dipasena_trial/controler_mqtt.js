@@ -63,7 +63,7 @@ module.exports = {
                 const insertQuery = `INSERT INTO tambak_dipasena(time, suhu_air_permukaan, suhu_air_dasar, suhu_ruang, salinitas, oxygen, ph, amonia ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
                 dbase_mqtt.query(insertQuery, dataArray, (err, res) => {
                     if (err) throw err;
-                //  console.log(`DATA INSERTED TO DATABASE db_dipasena_trial : Time = ${TS}, Suhu_Air_Atas = ${SUHU_AIR_ATAS},Suhu_Air_Bawah =${SUHU_AIR_BAWAH} Suhu_Ruang = ${SUHU_RUANG}, Salinitas = ${SALINITAS}, Kadar_oksigen =${OXYGEN}, Salinitas = ${SALINITAS}, Amonia = ${AMONIA}`);
+                console.log(`DATA INSERTED TO DATABASE db_dipasena_trial : Time = ${TS}, Suhu_Air_Atas = ${SUHU_AIR_ATAS},Suhu_Air_Bawah =${SUHU_AIR_BAWAH} Suhu_Ruang = ${SUHU_RUANG}, Salinitas = ${SALINITAS}, Kadar_oksigen =${OXYGEN}, Salinitas = ${SALINITAS}, Amonia = ${AMONIA}`);
                 });
             }
         }

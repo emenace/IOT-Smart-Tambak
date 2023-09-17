@@ -42,5 +42,75 @@ module.exports = {
         })
         console.log("[REST-API DIPASENA] GET DATA TABEL 50");
     },
+    // CHART 
+    async getDataChartSuhuPer(req, res) {
+        data2 = await dbase_rest.query(`SELECT to_char(time, 'HH24:MI:SS') as time1, suhu_air_permukaan,suhu_air_dasar,suhu_ruang FROM tambak_dipasena ORDER BY time DESC LIMIT 60`);
+
+        res.status(200);
+        res.send({
+            count:data2.rowCount,
+            result:data2.rows,
+        })
+        console.log("[REST-API DIPASENA] GET DATA CHART 50");
+    },
+
+    // CHART PH
+    async getDataChartPh(req, res) {
+        data3 = await dbase_rest.query(`SELECT to_char(time, 'HH24:MI:SS') as time2, ph FROM tambak_dipasena ORDER BY time DESC LIMIT 60`);
+
+        res.status(200);
+        res.send({
+            count:data3.rowCount,
+            result:data3.rows,
+        })
+        console.log("[REST-API DIPASENA] GET DATA PH 50");
+    },
+    // CHART kadar Oksigen
+    async getDataChartDo(req, res) {
+        data4 = await dbase_rest.query(`SELECT to_char(time, 'HH24:MI:SS') as time3, oxygen FROM tambak_dipasena ORDER BY time DESC LIMIT 60`);
+
+        res.status(200);
+        res.send({
+            count:data4.rowCount,
+            result:data4.rows,
+        })
+        console.log("[REST-API DIPASENA] GET DATA DO 60");
+    },
+    // CHART Salinitas 
+    async getDataChartSalinitas(req, res) {
+        data5 = await dbase_rest.query(`SELECT to_char(time, 'HH24:MI:SS') as time4, salinitas FROM tambak_dipasena ORDER BY time DESC LIMIT 60`);
+
+        res.status(200);
+        res.send({
+            count:data5.rowCount,
+            result:data5.rows,
+        })
+        console.log("[REST-API DIPASENA] GET DATA SALINITAS 60");
+    },
+    // CHART Suhu Ruanng
+    async getDataChartSuhuRuang(req, res) {
+        data6 = await dbase_rest.query(`SELECT to_char(time, 'HH24:MI:SS') as time5, suhu_ruang FROM tambak_dipasena ORDER BY time DESC LIMIT 60`);
+
+        res.status(200);
+        res.send({
+            count:data6.rowCount,
+            result:data6.rows,
+        })
+        console.log("[REST-API DIPASENA] GET DATA SUHU RUANG 60");
+    },
+    // CHART Amonia
+    async getDataChartAmonia(req, res) {
+        data7 = await dbase_rest.query(`SELECT to_char(time, 'HH24:MI:SS') as time6, amonia FROM tambak_dipasena ORDER BY time DESC LIMIT 60`);
+
+        res.status(200);
+        res.send({
+            count:data7.rowCount,
+            result:data7.rows,
+        })
+        console.log("[REST-API DIPASENA] GET DATA AMONIA 60");
+    },
+
+
+    
 
 }

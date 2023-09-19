@@ -21,7 +21,7 @@ const api = express();
 api.use(bodyParser.urlencoded({ extended: false }))
 api.use(bodyParser.json())
 api.use(cors({
-    origin:['http://localhost/3000','*']
+    origin:['*']
 }));
 
 

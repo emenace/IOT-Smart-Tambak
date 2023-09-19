@@ -1,5 +1,5 @@
 function fetchDataAndDisplay() {
-    fetch('http://localhost:3000/dipasena/latest')
+    fetch('http://vps.isi-net.org:3100/dipasena/latest')
         .then(response => response.json())
         .then(data => {
             const suhu_air_permukaan = data.result[0].suhu_air_permukaan;
@@ -32,7 +32,7 @@ fetchDataAndDisplay();
 
 
 function fetchData() {
-    fetch('http://localhost:3000/dipasena/tabel') // Ganti URL_API_ANDA dengan URL API JSON yang sesuai
+    fetch('http://vps.isi-net.org:3100/dipasena/tabel') // Ganti URL_API_ANDA dengan URL API JSON yang sesuai
         .then(response => response.json())
         .then(data => {
             const dataBody = document.getElementById('data-body');
@@ -64,7 +64,7 @@ setInterval(fetchData, 600000);
 fetchData();
 
 // LINE Chart Suhu AIr 
-fetch('http://localhost:3000/dipasena/chart/suhuAir')
+fetch('http://vps.isi-net.org:3100/dipasena/chart/suhuAir')
 .then(response => response.json())
 .then(data => {
     const result = data.result;
@@ -98,7 +98,7 @@ fetch('http://localhost:3000/dipasena/chart/suhuAir')
 .catch(error => console.error('Error:', error));
 
 // Line Chart PH 
-fetch('http://localhost:3000/dipasena/chart/ph')
+fetch('http://vps.isi-net.org:3100/dipasena/chart/ph')
 .then(response => response.json())
 .then(data => {
     const result = data.result;
@@ -124,7 +124,7 @@ fetch('http://localhost:3000/dipasena/chart/ph')
 .catch(error => console.error('Error:', error));
 
 // Line Chart KADAR OKSIGEN
-fetch('http://localhost:3000/dipasena/chart/do')
+fetch('http://vps.isi-net.org:3100/dipasena/chart/do')
 .then(response => response.json())
 .then(data => {
     const result = data.result;
@@ -151,7 +151,7 @@ fetch('http://localhost:3000/dipasena/chart/do')
 
 
 // Line Chart SALINITAS
-fetch('http://localhost:3000/dipasena/chart/salinitas')
+fetch('http://vps.isi-net.org:3100/dipasena/chart/salinitas')
 .then(response => response.json())
 .then(data => {
     const result = data.result;
@@ -177,7 +177,7 @@ fetch('http://localhost:3000/dipasena/chart/salinitas')
 .catch(error => console.error('Error:', error));
 
 // Line Chart Suhu Ruang
-fetch('http://localhost:3000/dipasena/chart/suhuRuang')
+fetch('http://vps.isi-net.org:3100/dipasena/chart/suhuRuang')
 .then(response => response.json())
 .then(data => {
     const result = data.result;
@@ -203,7 +203,7 @@ fetch('http://localhost:3000/dipasena/chart/suhuRuang')
 .catch(error => console.error('Error:', error));
 
 // Line Chart Amonia
-fetch('http://localhost:3000/dipasena/chart/amonia')
+fetch('http://vps.isi-net.org:3100/dipasena/chart/amonia')
 .then(response => response.json())
 .then(data => {
     const result = data.result;

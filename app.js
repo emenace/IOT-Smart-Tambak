@@ -25,7 +25,7 @@ api.use(cors({
 }));
 
 
-const dbase_dipasena = require('./database_config.js'); 
+const dbase_dipasena = require('./BE_dipasena/database_config.js'); 
 dbase_dipasena.query(`CREATE TABLE IF NOT EXISTS tambak_dipasena (
   time TIMESTAMP NOT NULL,  
   suhu_air_permukaan FLOAT,
@@ -41,7 +41,7 @@ dbase_dipasena.query(`CREATE TABLE IF NOT EXISTS tambak_dipasena (
 
 
 // API HANLDING FOR PANJANG
-const dipasena_appRoute = require('./route.js');
+const dipasena_appRoute = require('./BE_dipasena/route.js');
 api.use('/', cors(), dipasena_appRoute);
 
 api.use('/', cors(), (req, res) => {
@@ -64,8 +64,8 @@ httpServer.listen(process.env.API_PORT, () => {
 //});
 
 const topic = process.env.TOPIC;
-const mqtt_connect = require('./mqtt_config.js')
-const {incomingData} = require('./controler_mqtt.js') 
+const mqtt_connect = require('./BE_dipasena/mqtt_config.js')
+const {incomingData} = require('./BE_dipasena/controler_mqtt.js') 
   // Subscribe topic to receive data from raspberryPi
   // Data From Canti
 //Subscribe topic to receive API request

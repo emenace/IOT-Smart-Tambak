@@ -6,14 +6,14 @@ require('dotenv').config()
 TOPIC_DIPASENA = process.env.TOPIC;
 TOPIC_API = process.env.TOPIC_2;
 
-TS_PATH = "Waktu"// Now using TSjsn;
-SUHU_AIR_ATAS_PATH = "Suhu_Air_permukaan" //Now using tinggijsn; //change path based on data from raspberrypi
-SUHU_AIR_BAWAH_PATH = "Suhu_Air_Dalam" //Now using tinggijsn; //change path based on data from raspberrypi
-SUHU_RUANG_PATH = "Suhu_Ruang"
-SALINITAS_PATH = "Salinitas"
-OXYGEN_PATH = "Oxygen"
-PH_PATH = "pH"
-AMONIA_PATH = "amoniak"
+TS_PATH = process.env.PAYLOAD_DIPASENA_TS// Now using TSjsn;
+SUHU_AIR_ATAS_PATH = process.env.PAYLOAD_DIPASENA_SUHU_AIR_ATAS //Now using tinggijsn; //change path based on data from raspberrypi
+SUHU_AIR_BAWAH_PATH = process.env.PAYLOAD_DIPASENA_SUHU_AIR_BAWAH //Now using tinggijsn; //change path based on data from raspberrypi
+SUHU_RUANG_PATH = process.env.PAYLOAD_DIPASENA_SUHU_RUANG
+SALINITAS_PATH = process.env.PAYLOAD_DIPASENA_SALINITAS
+OXYGEN_PATH = process.env.PAYLOAD_DIPASENA_DO
+PH_PATH = process.env.PAYLOAD_DIPASENA_PH
+AMONIA_PATH = process.env.PAYLOAD_DIPASENA_AMONIA
 
 var { TS, SUHU_AIR_ATAS, SUHU_AIR_BAWAH, SUHU_RUANG, SALINITAS, OXYGEN, PH, AMONIA } = [];
 
@@ -58,6 +58,7 @@ module.exports = {
         
                 }
                 const dataArray = [TS,SUHU_AIR_ATAS, SUHU_AIR_BAWAH, SUHU_RUANG, SALINITAS, OXYGEN,PH, AMONIA];
+                console.log(dataArray);
                 const insertQuery = `INSERT INTO tambak_dipasena(time, suhu_air_permukaan, suhu_air_dasar, suhu_ruang, salinitas, oxygen, ph, amonia ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
                 dbase_mqtt.query(insertQuery, dataArray, (err, res) => {
                     if (err) throw err;
